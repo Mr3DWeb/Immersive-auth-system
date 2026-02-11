@@ -1,10 +1,9 @@
-import Experience from './canvas/Experience'
+import Auth from "@/components/auth";
 
 function Page(){
   return(
     <>
-      <Experience />
-    
+    <Auth />
     </>
   )
 }
