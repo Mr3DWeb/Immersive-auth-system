@@ -19,7 +19,7 @@ const createBGShader = (uMouse : MouseType)=>{
     
     return mix(deepColor, highColor, finalPattern);
 
-  })
+  })();
 }
 
 export default createBGShader;

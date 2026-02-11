@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { WebGPURenderer } from "three/webgpu";
 import { ACESFilmicToneMapping,SRGBColorSpace } from "three";
+import Background from "./background/Background";
 
 
 
@@ -24,7 +25,7 @@ function Scene(){
       >
       
   
-        
+        <Background />
       </Canvas>
     </Suspense>
 
