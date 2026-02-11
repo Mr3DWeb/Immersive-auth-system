@@ -5,12 +5,14 @@ import { Canvas } from "@react-three/fiber";
 import { WebGPURenderer } from "three/webgpu";
 import { ACESFilmicToneMapping,SRGBColorSpace } from "three";
 import { OrbitControls, Html } from "@react-three/drei";
-import Background from "./background/Background";
 
+import useResponsiveData from "./hooks/useResponsiveData";
+import Background from "./background/Background";
 import Login from "./ui/Login";
 import SignUp from "./ui/SignUp";
 
 function Scene(){
+  const responsiveData = useResponsiveData();
   return(
     <>
     <Suspense fallback={null}>
@@ -23,10 +25,15 @@ function Scene(){
         await renderer.init();
         return renderer
       }}
+      camera={{ position: [0, 0, responsiveData.cameraZ], fov: 50}}
       >
         <OrbitControls />
-      <Html center>
+      <Html center position={[0, 0, 0.1]} zIndexRange={[100, 0]}>
         <Login />
+      </Html>
+
+      <Html  center position={[0, 0, -0.1]} rotation={[0, Math.PI, 0]} zIndexRange={[100, 0]}>
+        <SignUp />
       </Html>
 
         <Background />

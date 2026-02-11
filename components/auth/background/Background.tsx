@@ -5,6 +5,7 @@ import { MeshBasicNodeMaterial } from "three/webgpu";
 import { uniform } from "three/tsl";
 import createBGShader from "./Logic";
 import useAuthStore from "../store/store";
+import useResponsiveData from "../hooks/useResponsiveData";
 
 extend ({MeshBasicNodeMaterial });
 
@@ -17,6 +18,8 @@ declare module "@react-three/fiber" {
 
 
 function Background(){
+  const responsiveData = useResponsiveData();
+
   const {viewport} = useThree();
   const status = useAuthStore((state)=> state.status);
 
@@ -56,8 +59,8 @@ function Background(){
   // })
 
   return (
-    <mesh scale={[viewport.width,viewport.height,1]}>
-      <planeGeometry args={[1, 1, 32, 32]} />
+    <mesh>
+      <planeGeometry args={[responsiveData.planeArgs.x, responsiveData.planeArgs.y, 32, 32]} />
       <meshBasicNodeMaterial colorNode={shaderNode} side={DoubleSide} />
     </mesh>
   )
