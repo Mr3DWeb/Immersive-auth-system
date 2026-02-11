@@ -4,8 +4,11 @@ import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { WebGPURenderer } from "three/webgpu";
 import { ACESFilmicToneMapping,SRGBColorSpace } from "three";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Html } from "@react-three/drei";
 import Background from "./background/Background";
+
+import Login from "./ui/Login";
+import SignUp from "./ui/SignUp";
 
 function Scene(){
   return(
@@ -22,8 +25,10 @@ function Scene(){
       }}
       >
         <OrbitControls />
-      
-  
+      <Html center>
+        <Login />
+      </Html>
+
         <Background />
       </Canvas>
     </Suspense>
