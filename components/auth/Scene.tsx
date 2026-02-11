@@ -28,11 +28,11 @@ function Scene(){
       camera={{ position: [0, 0, responsiveData.cameraZ], fov: 50}}
       >
         <OrbitControls />
-      <Html center position={[0, 0, 0.1]} zIndexRange={[100, 0]}>
+      <Html occlude  scale={0.1} transform center position={[0, 0, 0.05]} zIndexRange={[100, 0]}>
         <Login />
       </Html>
 
-      <Html  center position={[0, 0, -0.1]} rotation={[0, Math.PI, 0]} zIndexRange={[100, 0]}>
+      <Html occlude transform scale={0.1} center position={[0, 0, -0.05]} rotation={[0, Math.PI, 0]} zIndexRange={[100, 0]}>
         <SignUp />
       </Html>
 
