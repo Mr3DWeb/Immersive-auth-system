@@ -4,9 +4,8 @@ import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { WebGPURenderer } from "three/webgpu";
 import { ACESFilmicToneMapping,SRGBColorSpace } from "three";
+import { OrbitControls } from "@react-three/drei";
 import Background from "./background/Background";
-
-
 
 function Scene(){
   return(
@@ -21,8 +20,8 @@ function Scene(){
         await renderer.init();
         return renderer
       }}
-
       >
+        <OrbitControls />
       
   
         <Background />
