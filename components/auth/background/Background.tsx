@@ -1,4 +1,4 @@
-import { useMemo,useEffect } from "react";
+import { useMemo, useEffect } from "react";
 import { extend, useFrame } from "@react-three/fiber";
 import { Vector2 } from "three";
 import { MeshBasicNodeMaterial } from "three/webgpu";
@@ -24,7 +24,7 @@ interface BackgroundProps {
 }
 
 function Background({setRef}:BackgroundProps){
-  const responsiveData = useResponsiveData();
+  const { planeArgs, isMobile } = useResponsiveData();
 
   const status = useAuthStore((state)=> state.status);
   const view = useAuthStore((state) => state.view);
@@ -73,6 +73,12 @@ function Background({setRef}:BackgroundProps){
   }, [status, uAlphaIdle, uAlphaTunnel, uAlphaSuccess, uAlphaError]);
 
   useFrame(({ pointer }) => {
+    if (isMobile) {
+      // مطمئن می‌شویم ماوس در حالت خنثی (بیرون صفحه) می‌ماند تا افکت گیر نکند
+      // فقط اگر مقدارش قبلاً 10 نیست ست می‌کنیم تا سربار کمتری داشته باشد
+      if (uMouse.value.x !== 10) uMouse.value.set(10, 10);
+      return; 
+    }
     // 1. محاسبه مختصات هدف (نرمال شده 0 تا 1)
     let targetX = (pointer.x + 1) / 2;
     // تغییر let به const برای targetY چون مقدارش تغییر نمی‌کند
@@ -95,7 +101,7 @@ function Background({setRef}:BackgroundProps){
 
   return (
     <mesh ref={setRef}>
-      <planeGeometry args={[responsiveData.planeArgs.x, responsiveData.planeArgs.y, 32, 32]} />
+      <planeGeometry args={[planeArgs.x, planeArgs.y, 32, 32]} />
       <meshBasicNodeMaterial colorNode={shaderNode} side={2} />
     </mesh>
   )
