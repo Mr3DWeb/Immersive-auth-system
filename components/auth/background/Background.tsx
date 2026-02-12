@@ -1,13 +1,14 @@
 import { useMemo,useEffect } from "react";
-import { useFrame, useThree, extend } from "@react-three/fiber";
+import { useFrame, extend } from "@react-three/fiber";
 import { Vector2, DoubleSide } from "three";
 import { MeshBasicNodeMaterial } from "three/webgpu";
 import { uniform } from "three/tsl";
 import createBGShader from "./Logic";
 import useAuthStore from "../store/store";
 import useResponsiveData from "../hooks/useResponsiveData";
+import type { Mesh } from "three";
 
-extend ({MeshBasicNodeMaterial });
+extend ({MeshBasicNodeMaterial});
 
 declare module "@react-three/fiber" {
   interface ThreeElements {
@@ -16,11 +17,13 @@ declare module "@react-three/fiber" {
   }
 }
 
+interface BackgroundProps {
+  setRef: (node: Mesh | null) => void;
+}
 
-function Background(){
+function Background({setRef}:BackgroundProps){
   const responsiveData = useResponsiveData();
 
-  const {viewport} = useThree();
   const status = useAuthStore((state)=> state.status);
 
   const uMouse = useMemo (() => uniform(new Vector2(0,0)),[]);
@@ -59,7 +62,7 @@ function Background(){
   // })
 
   return (
-    <mesh>
+    <mesh ref={setRef}>
       <planeGeometry args={[responsiveData.planeArgs.x, responsiveData.planeArgs.y, 32, 32]} />
       <meshBasicNodeMaterial colorNode={shaderNode} side={DoubleSide} />
     </mesh>
