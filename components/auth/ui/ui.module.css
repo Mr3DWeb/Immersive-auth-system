@@ -18,6 +18,36 @@
   }
 }
 
+.dashboardPanel { 
+  /* width: 1200px; */
+  /* min-height: 60dvh; */
+}
+
+.dashboardHeader{
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
+}
+.btnLogout{
+  padding: 0.5rem 1.2rem;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  background-color: #ff000018;
+  border: 1px red solid;
+  color: white;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  margin-bottom: 0.5rem;
+  @supports (corner-shape: squircle) {
+        corner-shape: squircle;
+        border-radius: 80px; 
+  }
+}
+.btnLogout:hover{
+   border: none;
+   background-color: red;
+}
+
 .title {
   font-size: 2rem;
   font-weight: 700;
@@ -31,7 +61,7 @@
 .subtitle {
   text-align: center;
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   margin-bottom: 1rem;
 }
 
@@ -64,19 +94,13 @@
 
 .button {
   background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-  border: none;
-  border-radius: 12px;
   padding: 1rem;
   color: white;
   font-weight: 600;
   font-size: 1rem;
-  cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   margin-top: 1rem;
-  @supports (corner-shape: squircle) {
-        corner-shape: squircle;
-        border-radius: 80px; 
-  }
+
 }
 
 .button:hover {
@@ -93,7 +117,7 @@
   border: none;
   color: #a5b4fc;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   text-decoration: none;
   margin-top: 1rem;
   text-align: center;
@@ -103,6 +127,19 @@
 .linkButton:hover {
   color: #fff;
   text-decoration: underline;
+}
+
+.userProfile , .projectInfo, .socialMedia{
+  padding: 10px;
+}
+.userInfo {
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.socialMedia button{
+  margin-right: 15px;
 }
 
 @media (max-width: 1200px) {
