@@ -9,6 +9,7 @@ import useResponsiveData from "../hooks/useResponsiveData";
 import type { Mesh } from "three";
 import gsap from 'gsap';
 
+
 extend ({MeshBasicNodeMaterial});
 
 declare module "@react-three/fiber" {
@@ -26,6 +27,8 @@ function Background({setRef}:BackgroundProps){
   const responsiveData = useResponsiveData();
 
   const status = useAuthStore((state)=> state.status);
+  const view = useAuthStore((state) => state.view);
+
 
   const uMouse = useMemo(() => uniform(new Vector2(10, 10)), []);
   const uAlphaIdle = useMemo(() => uniform(1), []);
@@ -69,15 +72,24 @@ function Background({setRef}:BackgroundProps){
 
   }, [status, uAlphaIdle, uAlphaTunnel, uAlphaSuccess, uAlphaError]);
 
-  useFrame(({ mouse }) => {
-    // تبدیل مختصات ماوس (-1 تا 1) به مختصات UV (0 تا 1)
-    const targetX = (mouse.x + 1) / 2;
-    const targetY = (mouse.y + 1) / 2;
+  useFrame(({ pointer }) => {
+    // 1. محاسبه مختصات هدف (نرمال شده 0 تا 1)
+    let targetX = (pointer.x + 1) / 2;
+    // تغییر let به const برای targetY چون مقدارش تغییر نمی‌کند
+    const targetY = (pointer.y + 1) / 2;
 
-    // اعمال حرکت نرم (Lerp) برای اینکه "دنباله" حس بهتری داشته باشد
-    // ضریب 0.1 باعث می‌شود ماوس با کمی تاخیر دنبال شود که حس "شناوری در آب" می‌دهد
-    uMouse.value.x += (targetX - uMouse.value.x) * 0.1;
-    uMouse.value.y += (targetY - uMouse.value.y) * 0.1;
+    // 2. اصلاح جهت ماوس وقتی پشت صفحه هستیم (SignUp)
+    if (view === 'signup') {
+      targetX = 1 - targetX;
+    }
+
+    // 3. اعمال حرکت نرم (Lerp)
+    const current = uMouse.value;
+    
+    const nextX = current.x + (targetX - current.x) * 0.1;
+    const nextY = current.y + (targetY - current.y) * 0.1;
+    
+    current.set(nextX, nextY);
   });
 
 
