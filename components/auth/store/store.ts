@@ -15,10 +15,9 @@ interface AuthState {
 
   triggerError: () => void;
   triggerSuccess: () => void;
-  triggerTransition: () => void;
 }
 
-const useAuthStore = create<AuthState>((set)=>({
+const useAuthStore = create<AuthState>((set, get)=>({
   view:'login',
   status:'idle',
   isAnimating: false,
@@ -28,16 +27,21 @@ const useAuthStore = create<AuthState>((set)=>({
   setIsAnimating: (isAnimating) => set({ isAnimating }),
 
   triggerError: () => {
+    const { status } = get();
+    if (status === 'error' || get().isAnimating) return;
     set({ status: 'error' });
-    setTimeout(() => set({ status: 'idle' }), 2000);
+
+    setTimeout(() => {
+        set({ status: 'idle' });
+    }, 2000);
   },
 
   triggerSuccess: () => {
    set({ status: 'success' });
-  },
 
-  triggerTransition: () => {
-    set({ status: 'tunnel' });
+   setTimeout(() => {
+       set({ view: 'dashboard' });
+    }, 1500); 
   },
 
 }))
