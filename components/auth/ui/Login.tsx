@@ -27,6 +27,7 @@ function Login(){
       if (isSuccess) {
         // اگر موفق بود:
         triggerSuccess();
+        setView('dashboard');
       } else {
         // اگر ناموفق بود:
         triggerError();

@@ -75,7 +75,7 @@ function Background({setRef}:BackgroundProps){
     let targetX = (pointer.x + 1) / 2;
     const targetY = (pointer.y + 1) / 2;
 
-    if (view === 'signup') {
+    if (view === 'signup' || view === 'dashboard' ) {
       targetX = 1 - targetX;
     }
 

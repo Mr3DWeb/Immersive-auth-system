@@ -60,12 +60,24 @@ function AnimationManager(){
   };
 
   const animateToDashboard = () => {
-    gsap.to(camera.position, {
-      z: 20,
-      y: 10,
-      duration: 2,
-      ease: 'power3.in'
-    });
+    setIsAnimating(true);
+    
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsAnimating(false);
+        setStatus('idle');
+      }
+     });
+      tl.to(camera.position, {
+        z: -3,
+        duration: 2,
+        ease: 'power2.inOut',
+      }, 0)
+      .to(camera.rotation, {
+        y: Math.PI,
+        duration: 2,
+        ease: 'power2.inOut',
+      }, 0)
   };
 
   //---useEffects
@@ -77,7 +89,10 @@ function AnimationManager(){
       animateToLogin();
     } else if (view === 'dashboard') {
       animateToDashboard();
+    }else if (view === 'login' && prevView.current === 'dashboard') {
+      animateToLogin();
     }
+    
     prevView.current = view;
   }, [view]);
 

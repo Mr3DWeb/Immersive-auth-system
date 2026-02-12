@@ -12,11 +12,14 @@ import Login from "./ui/Login";
 import SignUp from "./ui/SignUp";
 import Dashboard from "./ui/Dashboard";
 import AnimationManager from "./animation/AnimationManager";
+import useAuthStore from "./store/store";
 
 import type { Mesh } from "three";
 
 function Scene(){
   const responsiveData = useResponsiveData();
+
+  const view = useAuthStore((state) => state.view);
 
   const blockerRef = useRef<Mesh>(null!);
   const [isBlockerReady, setIsBlockerReady] = useState(false);
@@ -42,16 +45,18 @@ function Scene(){
       camera={{ position: [0, 0, responsiveData.cameraZ], fov: 50}}
       >
         <OrbitControls />
-      {/* <Html occlude={isBlockerReady ? [blockerRef] : undefined} scale={0.1} transform center position={[0, 0, 0.05]} zIndexRange={[100, 0]}>
-        <Login />
-      </Html> */}
 
       <Html occlude={isBlockerReady ? [blockerRef] : undefined} scale={0.1} transform center position={[0, 0, 0.05]} zIndexRange={[100, 0]}>
-        <Dashboard />
+        <Login />
       </Html>
 
+
       <Html occlude={isBlockerReady ? [blockerRef] : undefined} transform scale={0.1} center position={[0, 0, -0.05]} rotation={[0, Math.PI, 0]} zIndexRange={[100, 0]}>
-        <SignUp />
+        {view === 'dashboard' ? (
+             <Dashboard />
+          ) : (
+             <SignUp />
+          )}
       </Html>
 
         <Background setRef={setBlockerRef} />
