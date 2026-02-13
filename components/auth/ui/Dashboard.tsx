@@ -2,16 +2,18 @@ import useAuthStore from "../store/store";
 import styles from './ui.module.css';
 
 function Dashboard(){
+
+  const setView = useAuthStore((state) => state.setView);
   
-  // const handleLogout = () => {
-    
-  // }
+  const handleLogout = () => {
+    setView('login');
+  }
 
   return(
     <div className={`${styles.glassPanel} ${styles.dashboardPanel}`}>
       <div className={styles.dashboardHeader} >
           <h2 className={styles.title} >Dashboard</h2>
-          <button className={styles.btnLogout} >Logout</button>
+          <button className={styles.btnLogout} onClick={handleLogout} >Logout</button>
       </div>
 
       <div className={styles.userProfile} >

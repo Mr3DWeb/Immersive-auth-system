@@ -7,11 +7,12 @@ interface AuthState {
   view:AuthView;
   status:ShaderStatus;
   isAnimating:boolean;
-
+  isDashboardOpen:boolean;
 
   setView:(view:AuthView) => void;
   setStatus: (status: ShaderStatus) => void;
   setIsAnimating:(state:boolean) => void;
+  setDashboardOpen: (isOpen: boolean) => void;
 
   triggerError: () => void;
   triggerSuccess: () => void;
@@ -21,10 +22,13 @@ const useAuthStore = create<AuthState>((set, get)=>({
   view:'login',
   status:'idle',
   isAnimating: false,
+  isDashboardOpen:false,
 
   setView:(view)=>set({ view }),
   setStatus:(status)=>set({ status }),
   setIsAnimating: (isAnimating) => set({ isAnimating }),
+  setDashboardOpen: (isOpen) => set({ isDashboardOpen: isOpen }),
+
 
   triggerError: () => {
     const { status } = get();
@@ -35,7 +39,7 @@ const useAuthStore = create<AuthState>((set, get)=>({
         set({ status: 'idle' });
     }, 2000);
   },
-
+  
   triggerSuccess: () => {
    set({ status: 'success' });
 

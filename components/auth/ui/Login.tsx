@@ -9,28 +9,28 @@ function Login(){
   const setView = useAuthStore((state) => state.setView);
   const triggerError = useAuthStore((state) => state.triggerError);
   const triggerSuccess = useAuthStore((state) => state.triggerSuccess);
+  const setDashboardOpen = useAuthStore((state) => state.setDashboardOpen);
   const isAnimating = useAuthStore((state) => state.isAnimating); 
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // --- Backend Integration Placeholder ---
     try {
-      // const response = await fetch('/api/login', { body: ... });
       
-      // شبیه‌سازی درخواست شبکه (Fake API)
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       const isSuccess = true; 
 
       if (isSuccess) {
-        // اگر موفق بود:
         triggerSuccess();
-        setTimeout(()=> setView('dashboard'),1000)
+        setTimeout(()=> {
+          setDashboardOpen(true)
+          setView('dashboard');
+        },1000)
         
       } else {
-        // اگر ناموفق بود:
         triggerError();
       }
 
@@ -51,7 +51,10 @@ function Login(){
     <div className={styles.glassPanel} style={{opacity: isAnimating ? 0 : 1 }}>
     <div>
       <h1 className={styles.title}>Welcome</h1>
-      <h2 className={styles.subtitle}> Practice Project Login System </h2>
+ 
+      <h2 className={styles.subtitle} style={{ color: 'rgba(104, 255, 44, 0.88)'}}> Login test  User&Pass : 1 </h2>
+      <h2 className={styles.subtitle} style={{ color: 'rgba(255, 44, 44, 0.88)'}}> Error test  User&Pass : 2 </h2>
+  
     </div>
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }} >
       <div className={styles.inputGroup}>

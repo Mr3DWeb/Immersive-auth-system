@@ -9,6 +9,7 @@ function AnimationManager(){
   const view = useAuthStore((state) => state.view);
   const setStatus = useAuthStore((state) => state.setStatus);
   const setIsAnimating = useAuthStore((state) => state.setIsAnimating);
+  const setDashboardOpen = useAuthStore((state) => state.setDashboardOpen);
 
   const prevView = useRef(view);
 
@@ -81,6 +82,30 @@ function AnimationManager(){
       }, 0)
   };
 
+  const animateFromDashboardToLogin = () => {
+    setIsAnimating(true);
+    
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setIsAnimating(false);
+        setStatus('idle');
+        setDashboardOpen(false);
+      }
+    });
+
+    tl.to({}, { duration: 0.1, onStart: () => setStatus('tunnel') })
+      .to(camera.position, {
+        z: 3,
+        duration: 2,
+        ease: 'power2.inOut',
+      }, 0)
+      .to(camera.rotation, {
+        y: 0,
+        duration: 2,
+        ease: 'power2.inOut',
+      }, 0)
+  };
+
   //---useEffects
   useEffect(()=>{
    if (prevView.current === view) return;
@@ -91,7 +116,7 @@ function AnimationManager(){
     } else if (view === 'dashboard') {
       animateToDashboard();
     }else if (view === 'login' && prevView.current === 'dashboard') {
-      animateToLogin();
+      animateFromDashboardToLogin();
     }
     
     prevView.current = view;

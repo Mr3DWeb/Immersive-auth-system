@@ -19,7 +19,7 @@ import type { Mesh } from "three";
 function Scene(){
   const responsiveData = useResponsiveData();
 
-  const view = useAuthStore((state) => state.view);
+  const isDashboardOpen = useAuthStore((state) => state.isDashboardOpen); 
 
   const blockerRef = useRef<Mesh>(null!);
   const [isBlockerReady, setIsBlockerReady] = useState(false);
@@ -52,7 +52,7 @@ function Scene(){
 
 
       <Html occlude={isBlockerReady ? [blockerRef] : undefined} transform scale={0.1} center position={[0, 0, -0.05]} rotation={[0, Math.PI, 0]} zIndexRange={[100, 0]}>
-        {view === 'dashboard' ? (
+        {isDashboardOpen ? (
              <Dashboard />
           ) : (
              <SignUp />
