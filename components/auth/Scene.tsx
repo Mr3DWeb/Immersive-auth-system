@@ -44,7 +44,7 @@ function Scene(){
       }}
       camera={{ position: [0, 0, responsiveData.cameraZ], fov: 50}}
       >
-        <OrbitControls />
+        
 
       <Html occlude={isBlockerReady ? [blockerRef] : undefined} scale={0.1} transform center position={[0, 0, 0.05]} zIndexRange={[100, 0]}>
         <Login />

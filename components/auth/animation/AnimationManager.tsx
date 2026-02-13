@@ -13,6 +13,10 @@ function AnimationManager(){
 
   const prevView = useRef(view);
 
+  const DURATION_MOVE = 4;
+  const DURATION_ROT = 0.1;
+  const DELAY_ROT = (DURATION_MOVE - DURATION_ROT) / 2;
+
   //---Animation Function----
   const animateToSignUp = () => {
     setIsAnimating(true);
@@ -27,14 +31,14 @@ function AnimationManager(){
     tl.to({}, { duration: 0.1, onStart: () => setStatus('tunnel') })
       .to(camera.position, {
         z: -3,
-        duration: 4,
+        duration: DURATION_MOVE,
         ease: 'power2.inOut',
       }, 0)
       .to(camera.rotation, {
         y: Math.PI,
-        duration: 4,
+        duration: DURATION_ROT,
         ease: 'power2.inOut',
-      }, 0)
+      }, DELAY_ROT)
   };
 
   const animateToLogin = () => {
@@ -50,14 +54,14 @@ function AnimationManager(){
     tl.to({}, { duration: 0.1, onStart: () => setStatus('tunnel') })
       .to(camera.position, {
         z: 3,
-        duration: 4,
+        duration: DURATION_MOVE,
         ease: 'power2.inOut',
       }, 0)
       .to(camera.rotation, {
         y: 0,
-        duration: 4,
+        duration: DURATION_ROT,
         ease: 'power2.inOut',
-      }, 0)
+      }, DELAY_ROT)
   };
 
   const animateToDashboard = () => {
@@ -72,14 +76,14 @@ function AnimationManager(){
      tl.to({}, { duration: 0.1, onStart: () => setStatus('tunnel') })
       .to(camera.position, {
         z: -3,
-        duration: 5,
+        duration: DURATION_MOVE+1,
         ease: 'power2.inOut',
       }, 0)
       .to(camera.rotation, {
         y: Math.PI,
-        duration: 5,
+        duration: DURATION_ROT,
         ease: 'power2.inOut',
-      }, 0)
+      }, DELAY_ROT)
   };
 
   const animateFromDashboardToLogin = () => {
@@ -96,14 +100,14 @@ function AnimationManager(){
     tl.to({}, { duration: 0.1, onStart: () => setStatus('tunnel') })
       .to(camera.position, {
         z: 3,
-        duration: 3,
+        duration: DURATION_MOVE-1,
         ease: 'power2.inOut',
       }, 0)
       .to(camera.rotation, {
         y: 0,
-        duration: 3,
+        duration: DURATION_ROT,
         ease: 'power2.inOut',
-      }, 0)
+      }, DELAY_ROT)
   };
 
   //---useEffects
