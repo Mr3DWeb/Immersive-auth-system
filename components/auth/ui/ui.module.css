@@ -147,17 +147,16 @@
 @media (max-width: 500px) {
   .glassPanel {
     padding: 2rem 1.5rem;
-    width: 350px;
-    max-width: 95vw;
+    width: 450px;
   }
 
   .title {
-    font-size: 1.75rem;
+    font-size: 2.5rem;
   }
   
   .input, .button {
     padding: 0.875rem;
-    font-size: 0.95rem;
+    font-size: 1.25rem;
   }
 }
 

@@ -43,7 +43,7 @@ function Dashboard(){
       <div className={styles.projectInfo}>
         <h3>Project Info</h3>
         <button className={styles.linkButton}>
-           <a href="https://github.com/Mr3DWeb" target="_blank" rel="noreferrer">Github</a> 
+           <a href="https://github.com/Mr3DWeb/Immersive-auth-system" target="_blank" rel="noreferrer">Github</a> 
         </button>
       </div>
 
